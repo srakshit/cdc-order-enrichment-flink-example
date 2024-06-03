@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  zookeeper:
+    image: zookeeper:latest
+    container_name: container_zookeeper
+    ports:
+      - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
+
+  kafka:
+    image: debezium/kafka:latest
+    container_name: container_broker
+    ports:
+      - "9092:9092"
+    environment:
+      - ZOOKEEPER_CONNECT=zookeeper:2181
+      - ADVERTISED_HOST_NAME=192.168.0.38
+      - CREATE_TOPICS=orders:2:1
+    depends_on:
+      - zookeeper
+
+  mysql:
+    #image: mysql:latest
+    container_name: container_mysql
+    build: ./mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: debezium
+      MYSQL_PASSWORD: dbz
+      MYSQL_DATABASE: testdb
+
+  connect:
+    image: debezium/connect:2.7
+    container_name: container_kafka_connect
+    ports:
+      - "8083:8083"
+    environment:
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: kafka_connect_configs
+      OFFSET_STORAGE_TOPIC: kafka_connect_offsets
+      STATUS_STORAGE_TOPIC: kafka_connect_statuses
+      BOOTSTRAP_SERVERS: kafka:9092
+      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE: "false"
+      CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+    depends_on:
+      - zookeeper
+      - kafka
+      - mysql
