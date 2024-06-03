@@ -1,4 +1,4 @@
-package com.amazonaws.kafka.samples;
+package com.kafka.samples;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.KafkaProducer;

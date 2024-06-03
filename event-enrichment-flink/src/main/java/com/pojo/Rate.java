@@ -1,4 +1,4 @@
-package com.amazonaws.pojo;
+package com.pojo;
 
 import com.fasterxml.jackson.annotation.*;
 import java.io.Serializable;

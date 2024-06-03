@@ -1,4 +1,4 @@
-package com.amazonaws.kafka.samples;
+package com.kafka.samples;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;

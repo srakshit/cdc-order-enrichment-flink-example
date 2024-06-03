@@ -20,22 +20,18 @@ under the License.
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.amazonaws.event-data-enrichment</groupId>
-    <artifactId>event-data-enrichment</artifactId>
+    <groupId>event-enrichment-flink</groupId>
+    <artifactId>event-enrichment-flink</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>event-data-enrichment</name>
+    <name>event-enrichment-flink</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <flink.version>1.18.1</flink.version>
-        <aws.kda.version>1.2.0</aws.kda.version>
         <target.java.version>11</target.java.version>
-        <aws.connector.version>4.2.0-1.18</aws.connector.version>
         <kafka.connector.version>3.1.0-1.18</kafka.connector.version>
-        <maven.compiler.source>${target.java.version}</maven.compiler.source>
-        <maven.compiler.target>${target.java.version}</maven.compiler.target>
         <log4j.version>2.17.2</log4j.version>
     </properties>
 
@@ -164,7 +160,7 @@ under the License.
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.amazonaws.ProcessStreamStaticReferenceDataLocal</mainClass>
+                                    <mainClass>com.ProcessStreamChangeDataCaptureReferenceData</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

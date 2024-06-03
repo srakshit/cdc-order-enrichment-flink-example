@@ -1,7 +1,7 @@
-package com.amazonaws.operators;
+package com.operators;
 
-import com.amazonaws.pojo.Order;
-import com.amazonaws.pojo.Rate;
+import com.pojo.Order;
+import com.pojo.Rate;
 import org.apache.flink.api.common.state.MapState;
 import org.apache.flink.api.common.state.MapStateDescriptor;
 import org.apache.flink.api.common.typeinfo.BasicTypeInfo;

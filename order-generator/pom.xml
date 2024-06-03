@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.amazonaws.kafka.samples</groupId>
+    <groupId>com.kafka.samples</groupId>
     <artifactId>order-Generator</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -106,7 +106,7 @@
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.amazonaws.kafka.samples.OrderProducer</mainClass>
+                                    <mainClass>com.kafka.samples.OrderProducer</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

@@ -1,7 +1,7 @@
-package com.amazonaws.utils;
+package com.utils;
 
-import com.amazonaws.pojo.Order;
-import com.amazonaws.pojo.Rate;
+import com.pojo.Order;
+import com.pojo.Rate;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.connector.kafka.source.KafkaSource;

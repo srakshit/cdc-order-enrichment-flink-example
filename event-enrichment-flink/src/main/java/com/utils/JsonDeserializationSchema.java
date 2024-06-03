@@ -1,4 +1,4 @@
-package com.amazonaws.utils;
+package com.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.flink.api.common.serialization.AbstractDeserializationSchema;

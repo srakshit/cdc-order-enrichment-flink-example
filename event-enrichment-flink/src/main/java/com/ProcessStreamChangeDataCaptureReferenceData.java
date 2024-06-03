@@ -1,9 +1,9 @@
-package com.amazonaws;
+package com;
 
-import com.amazonaws.operators.ChangeDataCaptureEnrichmentData;
-import com.amazonaws.pojo.Order;
-import com.amazonaws.pojo.Rate;
-import com.amazonaws.utils.KafkaInitialiser;
+import com.operators.ChangeDataCaptureEnrichmentData;
+import com.pojo.Order;
+import com.pojo.Rate;
+import com.utils.KafkaInitialiser;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.connector.kafka.source.KafkaSource;
