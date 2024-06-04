@@ -29,7 +29,7 @@ password: `password`
     GRANT ALL PRIVILEGES ON *.* TO 'debezium'@'%';
     FLUSH PRIVILEGES;
 
-In tab 2 of the terminal, create a Kafka topic `orders`  
+In tab 2 of the terminal, create a Kafka topic `orders`. If you don't have the Kafka binary, please download it from [here](https://kafka.apache.org/downloads)  
 
 
     bin/kafka-topics.sh --bootstrap-server localhost:9093 --create --topic orders --replication-factor 1 --partitions 2
