@@ -1,7 +1,7 @@
 
 ## Architecture
 
-![Change Data Capture of reference data (rates) to enrich orders](arch.jpg)
+![Change Data Capture of reference data (rates) to enrich orders](arch.png)
 
 ## Setup
 
@@ -75,4 +75,15 @@ In tab 4 of the terminal, run the order generator application -
     java -cp target/order-Generator-1.0-SNAPSHOT.jar com.amazonaws.kafka.samples.OrderProducer
 
 
+The order generator application, generate late events periodically. These events are highlighted in yellow.
+The Flink application will enrich the events from the `orders` topic with rate information captured from `testdb.testdb.rates` topic.
 
+Now, in tab 1, update the rates - 
+
+
+    UPDATE rates SET rate=1.31 WHERE currency='USD';
+    UPDATE rates SET rate=105.84 WHERE currency='INR';
+    UPDATE rates SET rate=1.15 WHERE currency='EUR';
+
+
+In tab 3, of the Flink application, we would see that the Rate change events are processed by Flink application. All the new order events will use the latest excahnge rates. However any late order events generated will use the exchange rate applicable during the order transaction time.
