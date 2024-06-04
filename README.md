@@ -6,10 +6,10 @@
 ## Setup
 
 Clone the Github repo and execute the docker-compose command. Before that ensure docker host is running in your system.
-    docker-compose up -d
+    `docker-compose up -d`
 
 In tab 1 of the terminal, connect to mysql and create the tables.
-    docker exec -it container_mysql mysql -h localhost -u root -p testdb
+    `docker exec -it container_mysql mysql -h localhost -u root -p testdb`
     password: `password`
 
     CREATE TABLE rates (
