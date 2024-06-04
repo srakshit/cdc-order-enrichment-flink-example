@@ -12,8 +12,6 @@ services:
     container_name: container_broker
     ports:
       - "9093:9093"
-    volumes:
-      - "kafka-volume:/bitnami"
     environment:
       - KAFKA_BROKER_ID=1
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181

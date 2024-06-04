@@ -29,17 +29,16 @@ password: `password`
     GRANT ALL PRIVILEGES ON *.* TO 'debezium'@'%';
     FLUSH PRIVILEGES;
 
-In tab 2 of the terminal, create a Kafka topic `orders`. If you don't have the Kafka binary, please download it from [here](https://kafka.apache.org/downloads)  
-
-
-    bin/kafka-topics.sh --bootstrap-server localhost:9093 --create --topic orders --replication-factor 1 --partitions 2
-
-    
-Also, in the same terminal, run the debezium MySQL connector on Kafka connect  
+In tab 2 of the terminal, run the debezium MySQL connector on Kafka connect
 
 
     curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors --data @debezium-config.json
 
+
+Also, in the same terminal, create a Kafka topic `orders`. If you don't have the Kafka binary, please download it from [here](https://kafka.apache.org/downloads)  
+
+
+    bin/kafka-topics.sh --bootstrap-server localhost:9093 --create --topic orders --replication-factor 1 --partitions 2
 
 
 List the topics  
@@ -63,7 +62,7 @@ It should show the following topics -
 
 In tab 3 of the terminal, run the Flink application -  
     
-    
+    cd event-enrichment-flink
     java -cp target/event-enrichment-flink-1.0-SNAPSHOT.jar com.ProcessStreamChangeDataCaptureReferenceData --bootstrap.servers localhost:9093 --raw.event.topic orders --reference.data.topic testdb.testdb.rates --order.consumer.group.id orders-consumer-v1
 
 
@@ -71,7 +70,7 @@ Once the Flink application runs, it would pick up the `Rate` information from te
 
 In tab 4 of the terminal, run the order generator application -  
 
-
+    cd order-generator
     java -cp target/order-Generator-1.0-SNAPSHOT.jar com.amazonaws.kafka.samples.OrderProducer
 
 

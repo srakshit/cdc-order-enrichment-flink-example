@@ -36,36 +36,47 @@ public class ChangeDataCaptureEnrichmentData extends KeyedCoProcessFunction<Stri
         rateMapState = getRuntimeContext().getMapState(mapStateDesc);
     }
 
-    //processElement1 determines how Customer data needs to be handled
+    //processElement1 determines how Order event needs to be handled
     @Override
     public void processElement1(Order order, KeyedCoProcessFunction<String, Order, Rate, Order>.Context ctx, Collector<Order> out) throws Exception {
         if (rateMapState.get(ctx.getCurrentKey()) != null) {
             List<Rate> rates = rateMapState.get(ctx.getCurrentKey());
             Rate rate;
+
+            //Process the rate list in reverse order as the recent rate is at the end of the list
             for (int i = rates.size() - 1; i >= 0; i--)
             {
                 rate = rates.get(i);
                 //System.out.println(String.format("order_id: %s, order_ts: %s, rate_ts: %s, order_ts>rate_ts: %s, currency: %s, rate: %s", order.getOrderId(), order.getOrderTimestamp(), rate.getUpdateTimestamp(), order.getOrderTimestamp() > rate.getUpdateTimestamp(), rate.getCurrency(), rate.getRate()));
                 if (i < (rates.size() - 1)) System.out.println(String.format(YELLOW_BOLD +"Late Event Processed: " + RESET));
 
+                //Apply the rates to the order when order is created after the rate is updated
                 if (order.getOrderTimestamp() > rate.getUpdateTimestamp()) {
                     order.setConversionRate(rate.getRate());
                     out.collect(order);
                     return;
                 }
             }
+
+            //Edge case: This happens for late data, where late order data is created before the any rate was available.
+            out.collect(order);
         }
     }
 
-    //processElement2 determines how Order data needs to be handled
+    //processElement2 determines how Rate event needs to be handled
     @Override
     public void processElement2(Rate rate, KeyedCoProcessFunction<String, Order, Rate, Order>.Context ctx, Collector<Order> out) throws Exception {
         List<Rate> rates = new ArrayList<>();
+        //Check if rates are available in state for the specific key - USD/EUR. If so, load them into a list
         if (rateMapState.get(ctx.getCurrentKey()) != null) {
             rates = rateMapState.get(ctx.getCurrentKey());
         }
+
+        //Append the new rate to the list
         rates.add(rate);
         System.out.println(String.format(CYAN_BOLD +"Rate changed for %s to %s at %s" + RESET, rate.getCurrency(), rate.getRate(), rate.getUpdateTime()));
+
+        //Put back the list of rate for specific key
         rateMapState.put(ctx.getCurrentKey(), rates);
     }
 }
