@@ -1,7 +1,7 @@
 
 ## Architecture
 
-![Change Data Capture of reference data (rates) to enrich orders](arch.png)
+![Change Data Capture of reference data (rates) to enrich orders](event-enrichment-flink/src/main/resources/arch.png)
 
 ## Setup
 
