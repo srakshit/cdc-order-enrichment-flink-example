@@ -25,8 +25,13 @@ password: `password`
         currency VARCHAR(20) NOT NULL, 
         rate FLOAT NOT NULL, 
         last_update_ts TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
+
     INSERT INTO rates (currency, rate) VALUES ("USD", 1.27), ("EUR", 1.17), ("INR", 106.27), ("GBP", 1);
+    
+    SELECT * FROM rates;
+
     GRANT ALL PRIVILEGES ON *.* TO 'debezium'@'%';
+
     FLUSH PRIVILEGES;
 
 In tab 2 of the terminal, run the debezium MySQL connector on Kafka connect
