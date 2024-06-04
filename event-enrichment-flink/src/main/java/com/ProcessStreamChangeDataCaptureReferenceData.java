@@ -31,6 +31,7 @@ public class ProcessStreamChangeDataCaptureReferenceData {
         //Create Kafka source - Order
         DataStream<Order> orderStream = ki.createOrderStream(env, parameter, DEFAULT_SOURCE_TOPIC);
 
+        //Connect Order and Rate stream and apply process function
         DataStream<Order> enrichedOrderStream = orderStream
                 .connect(rateStream)
                 .keyBy(order -> order.getCurrency(), rate -> rate.getCurrency())

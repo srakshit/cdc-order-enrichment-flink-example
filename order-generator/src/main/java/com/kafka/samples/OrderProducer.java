@@ -22,7 +22,7 @@ public class OrderProducer{
     private static int MIN = 10;
     private static int MAX = 200;
     private static int MIN_DELAY = 10;
-    private static int MAX_DELAY = 500;
+    private static int MAX_DELAY = 200;
     public static final String YELLOW_BOLD = "\033[1;33m"; // YELLOW
     public static final String RESET = "\033[0m";  // Text Reset
 
