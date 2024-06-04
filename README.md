@@ -30,19 +30,19 @@ List the topics
     `bin/kafka-topics.sh --bootstrap-server localhost:9093 --list`
 
 It should show the following topics -  
-    `__consumer_offsets
-    kafka_connect_configs
-    kafka_connect_offsets
-    kafka_connect_statuses
-    schema-changes
-    testdb
+    `__consumer_offsets  
+    kafka_connect_configs  
+    kafka_connect_offsets  
+    kafka_connect_statuses  
+    schema-changes  
+    testdb  
     testdb.testdb.rates`
 
-In tab 3 of the terminal, run the Flink application  
+In tab 3 of the terminal, run the Flink application -  
     `java -cp target/event-enrichment-flink-1.0-SNAPSHOT.jar com.ProcessStreamChangeDataCaptureReferenceData --bootstrap.servers localhost:9093 --raw.event.topic orders --reference.data.topic testdb.testdb.rates --order.consumer.group.id orders-consumer-v1`
 
 Once the Flink application runs, it would pick up the `Rate` information from testdb.testdb.rates
 
-In tab 4 of the terminal, run the order generator application  
+In tab 4 of the terminal, run the order generator application -  
     `java -cp target/order-Generator-1.0-SNAPSHOT.jar com.amazonaws.kafka.samples.OrderProducer`
 
