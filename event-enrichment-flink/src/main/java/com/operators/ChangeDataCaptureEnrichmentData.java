@@ -73,14 +73,6 @@ public class ChangeDataCaptureEnrichmentData extends KeyedCoProcessFunction<Stri
         }
     }
 
-    private void printLateEventProcessingMsg(Order order) throws IOException {
-        //Compare with previous order event timestamp before printing late event message
-        if (prevOrderTimestamp.value() != null && order.getOrderTimestamp() < prevOrderTimestamp.value()) {
-            System.out.println(String.format(YELLOW_BOLD +"Late Event Processed: " + RESET));
-        }
-        prevOrderTimestamp.update(order.getOrderTimestamp());
-    }
-
     //processElement2 determines how Rate event needs to be handled
     @Override
     public void processElement2(Rate rate, KeyedCoProcessFunction<String, Order, Rate, Order>.Context ctx, Collector<Order> out) throws Exception {
@@ -96,5 +88,13 @@ public class ChangeDataCaptureEnrichmentData extends KeyedCoProcessFunction<Stri
 
         //Put back the list of rate for specific key
         rateMapState.put(ctx.getCurrentKey(), rates);
+    }
+
+    private void printLateEventProcessingMsg(Order order) throws IOException {
+        //Compare with previous order event timestamp before printing late event message
+        if (prevOrderTimestamp.value() != null && order.getOrderTimestamp() < prevOrderTimestamp.value()) {
+            System.out.println(String.format(YELLOW_BOLD +"Late Event Processed: " + RESET));
+        }
+        prevOrderTimestamp.update(order.getOrderTimestamp());
     }
 }
