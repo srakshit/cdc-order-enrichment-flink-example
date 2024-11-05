@@ -36,7 +36,7 @@ services:
       MYSQL_DATABASE: testdb
 
   connect:
-    image: debezium/connect:2.7
+    image: debezium/connect:2.7.3.Final
     container_name: container_kafka_connect
     ports:
       - "8083:8083"
