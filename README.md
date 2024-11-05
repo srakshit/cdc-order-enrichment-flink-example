@@ -59,7 +59,8 @@ It should show the following topics -
     kafka_connect_configs  
     kafka_connect_offsets  
     kafka_connect_statuses  
-    schema-changes  
+    schema-changes
+    orders
     testdb  
     testdb.testdb.rates
 
@@ -76,7 +77,7 @@ Once the Flink application runs, it would pick up the `Rate` information from te
 In tab 4 of the terminal, run the order generator application -  
 
     cd order-generator
-    java -cp target/order-Generator-1.0-SNAPSHOT.jar com.amazonaws.kafka.samples.OrderProducer
+    java -cp target/order-Generator-1.0-SNAPSHOT.jar com.kafka.samples.OrderProducer
 
 
 The order generator application, generate late events periodically. These events are highlighted in yellow.
